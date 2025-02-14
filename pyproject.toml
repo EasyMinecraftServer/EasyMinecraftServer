@@ -1,6 +1,6 @@
 [tool.poetry]
-name = "ubuntu-fast-server"
-version = "0.1.0"
+name = "easy-minecraft-server"
+version = "0.0.1"
 description = ""
 authors = ["Nucceteere <ruzgar@nucceteere.xyz>"]
 readme = "README.md"
