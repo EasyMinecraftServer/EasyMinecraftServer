@@ -1,9 +1,15 @@
 [tool.poetry]
 name = "easy-minecraft-server"
+packages = [
+    { include = "easy-minecraft-server" },
+]
 version = "0.0.1"
 description = ""
 authors = ["Nucceteere <ruzgar@nucceteere.xyz>"]
 readme = "README.md"
+
+[tool.poetry.scripts]
+easy-minecraft-server = "easy-minecraft-server.main:app"
 
 [tool.poetry.dependencies]
 python = "^3.13"
