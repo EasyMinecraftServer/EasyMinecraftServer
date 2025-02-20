@@ -82,8 +82,7 @@ def pick_version():
         print("\n")
         raise typer.Abort()
     if version not in versions and version != "latest":
-        print(
-            f'[bold red]Version "{escape(version)}" is not supported![/bold red]')
+        print(f'[bold red]Version "{escape(version)}" is not supported![/bold red]')
         raise typer.Abort()
     if version == "":
         version = "latest"
