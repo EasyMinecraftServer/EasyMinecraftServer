@@ -108,7 +108,7 @@ def detect_ram():
 def is_optimized():
     try:
         optimized = Confirm.ask(
-            "[yellow]Would[/yellow] you like your server to be optimized?", default=True
+            "Would you like your server to be [yellow]optimized[/yellow]?", default=True
         )
     except KeyboardInterrupt:
         print("\n")
