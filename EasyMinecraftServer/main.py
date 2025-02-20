@@ -117,8 +117,15 @@ def is_optimized():
 
 
 def should_open_port():
-    # Return value for debug purposes only
-    return True  # Return true or false as boolean
+    try:
+        open_port = Confirm.ask(
+            "Would you like the script to detect the firewall and open ports for you?",
+            default=False,
+        )
+    except KeyboardInterrupt:
+        print("\n")
+        raise typer.Abort()
+    return open_port  # Return true or false as boolean
 
 
 if __name__ == "__main__":
