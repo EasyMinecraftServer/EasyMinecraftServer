@@ -10,17 +10,13 @@ repos:
       - id: check-yaml
       - id: check-toml
       - id: pretty-format-json
-  # - repo: https://github.com/astral-sh/ruff-pre-commit
-  #   rev: v0.9.7
-  #   hooks:
-  #     - id: ruff
-  #       args: [--fix]
-  #     - id: ruff-format
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.9.7
+    hooks:
+      - id: ruff
+        args: [--fix]
+      - id: ruff-format
   - repo: https://github.com/rhysd/actionlint
     rev: v1.7.7
     hooks:
       - id: actionlint
-  # - repo: https://github.com/hhatto/autopep8
-  #   rev: v2.3.2 # select the tag or revision you want, or run `pre-commit autoupdate`
-  #   hooks:
-  #     - id: autopep8
