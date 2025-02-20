@@ -42,7 +42,7 @@ def configure():
     # conf_dir: str, location: str, version: str, loader: str, ram: int, optimized: bool, open_port: bool
 
 
-def setup():
+def setup():  # Create a default directory for the config file
     system = os.name
     if system == "posix":
         directory = "/opt/easymcserver/config"
@@ -82,10 +82,12 @@ def pick_version():
     except KeyboardInterrupt:
         print("\n")
         raise typer.Abort()
-    if version not in versions and version != "latest":
+    if (
+        version not in versions and version != ""
+    ):  # Exit if version isn't in the versions list or empty
         print(f'[bold red]Version "{escape(version)}" is not supported![/bold red]')
         raise typer.Abort()
-    if version == "":
+    if version == "":  # Set Default for Empty Strings
         version = "latest"
     print(f"Selected [bold magenta]{escape(version)}[/bold magenta]")
     return version  # Return version as string
@@ -98,7 +100,7 @@ def pick_server():
 
 def detect_ram():
     memory_info = psutil.virtual_memory().total
-    total_ram = memory_info / (1024 * 1024)
+    total_ram = memory_info / (1024 * 1024)  # Bytes to Megabytes
     usable_ram = total_ram - 1024  # Removing 1 GB Ram for use by OS
     return usable_ram  # Return Megabytes as integer
 
