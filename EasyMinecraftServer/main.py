@@ -1,6 +1,7 @@
 import typer
 import json
 import os
+import psutil
 
 from pathvalidate import sanitize_filepath
 from rich import print
@@ -96,8 +97,10 @@ def pick_server():
 
 
 def detect_ram():
-    # Return value for debug purposes only
-    return 8096  # Return Megabytes as integer
+    memory_info = psutil.virtual_memory().total
+    total_ram = memory_info / (1024 * 1024)
+    usable_ram = total_ram - 1024  # Removing 1 GB Ram for use by OS
+    return usable_ram  # Return Megabytes as integer
 
 
 def is_optimized():
