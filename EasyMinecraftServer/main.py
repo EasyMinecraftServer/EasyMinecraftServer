@@ -5,7 +5,7 @@ import psutil
 
 from pathvalidate import sanitize_filepath
 from rich import print
-from rich.prompt import Prompt
+from rich.prompt import Prompt, Confirm
 from rich.markup import escape
 from util.version_list import versions
 from pathlib import Path
@@ -106,8 +106,14 @@ def detect_ram():
 
 
 def is_optimized():
-    # Return value for debug purposes only
-    return True  # Return true or false as boolean
+    try:
+        optimized = Confirm.ask(
+            "[yellow]Would[/yellow] you like your server to be optimized?", default=True
+        )
+    except KeyboardInterrupt:
+        print("\n")
+        raise typer.Abort()
+    return optimized  # Return true or false as boolean
 
 
 def should_open_port():
