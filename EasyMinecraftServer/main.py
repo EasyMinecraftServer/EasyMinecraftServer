@@ -7,7 +7,7 @@ from pathvalidate import sanitize_filepath
 from rich import print
 from rich.prompt import Prompt, Confirm
 from rich.markup import escape
-from util.version_list import versions
+from data.version_list import versions
 from pathlib import Path
 
 app = typer.Typer()
@@ -45,7 +45,8 @@ def configure():
 def setup():  # Create a default directory for the config file
     system = os.name
     if system == "posix":
-        directory = "/opt/easymcserver/config"
+        homepath = os.getenv("HOME")
+        directory = f"{homepath}/.config/easymcserver/"
         dir = Path(directory)
         dir.mkdir(parents=True, exist_ok=True)
         return directory
@@ -94,8 +95,14 @@ def pick_version():
 
 
 def pick_server():
-    # Return value for debug purposes only
-    return "vanilla"  # Return software as string
+    try:
+        software = Prompt.ask(
+            "[yellow]Which server software[/yellow] would you like your server to use?\n[grey0](Default: paper)[grey0]"
+        ).lower()
+    except KeyboardInterrupt:
+        print("\n")
+        raise typer.Abort()
+    return software  # Return software as string
 
 
 def detect_ram():
