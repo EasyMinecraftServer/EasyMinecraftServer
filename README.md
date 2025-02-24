@@ -28,7 +28,7 @@ pre-commit install
 ## Used sources
 
 [NodeJS Minecraft Versions](https://github.com/Nixinova/Minecraft-Versions) by Nixinova ([java.yaml](https://github.com/Nixinova/Minecraft-Versions/blob/main/data/java.yaml))  
-[Tips and Tricks on Optimization](https://www.setup.md/docs) by the r/admincraft Community ( [Reddit](https://www.reddit.com/r/admincraft/) | [Discord](https://discord.gg/DxrXq2R) )
+[Tips and Tricks on Optimization](https://www.setup.md/docs) by the r/admincraft Community ( [Reddit](https://www.reddit.com/r/admincraft/) | [Discord](https://discord.gg/DxrXq2R) )  
 [Minecraft Server Software](https://github.com/LeStegii/server-software) by LeStegii & various contributors ([Website](https://lestegii.github.io/server-software))
 
 ## Used libraries
