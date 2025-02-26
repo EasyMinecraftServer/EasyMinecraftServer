@@ -8,6 +8,7 @@ from rich import print
 from rich.prompt import Prompt, Confirm
 from rich.markup import escape
 from data.version_list import versions
+from data.software_list import softwares
 from pathlib import Path
 
 app = typer.Typer()
@@ -15,13 +16,13 @@ app = typer.Typer()
 
 @app.command()
 def install():
-    print("[bold red]Not Implemented[/bold red]")
+    config = json.load(open(f"{conf_dir}/config.json", mode="r", encoding="utf-8"))
+    print(config)
     raise typer.Abort()
 
 
 @app.command()
 def configure():
-    conf_dir: str = setup()
     location: str = pick_location()
     version: str = pick_version()
     loader: str = pick_server()
@@ -52,10 +53,13 @@ def setup():  # Create a default directory for the config file
         return directory
     elif system == "nt":
         homepath = os.getenv("HOMEPATH")
-        directory = f"{homepath}/easymcserver/config"
+        directory = f"{homepath}\\easymcserver\\config"
         dir = Path(directory)
         dir.mkdir(parents=True, exist_ok=True)
         return directory
+
+
+conf_dir: str = setup()
 
 
 def pick_location():
@@ -102,6 +106,14 @@ def pick_server():
     except KeyboardInterrupt:
         print("\n")
         raise typer.Abort()
+    if software not in softwares and software != "":
+        print(
+            f"[red bold]Not Supported. List of available softwares:\n[/red bold][green bold]{softwares}[/green bold]"
+        )
+        raise typer.Abort()
+    if software == "":
+        software = "paper"
+    print(f"Selected [bold magenta]{escape(software)}[/bold magenta]")
     return software  # Return software as string
 
 

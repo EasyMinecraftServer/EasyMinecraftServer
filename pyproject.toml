@@ -14,9 +14,13 @@ easy-minecraft-server = "EasyMinecraftServer.main:app"
 [tool.poetry.dependencies]
 python = "^3.13"
 typer = "^0.15.1"
-pre-commit = "^4.1.0"
 pathvalidate = "^3.2.3"
 psutil = "^7.0.0"
+requests = "^2.32.3"
+
+[tool.poetry.group.dev.dependencies]
+pre-commit = "^4.1.0"
+pytest = "^8.3.4"
 
 [build-system]
 requires = ["poetry-core"]
