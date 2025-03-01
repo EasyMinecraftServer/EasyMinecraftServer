@@ -1,3 +1,7 @@
+# General
+
+- [x] Proper README.md and License
+
 # Configuration
 
 - [x] Platform dependent `pick_location()` default

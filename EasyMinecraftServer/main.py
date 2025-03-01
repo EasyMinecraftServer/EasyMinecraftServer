@@ -8,8 +8,8 @@ from pathvalidate import sanitize_filepath
 from rich import print
 from rich.prompt import Prompt, Confirm
 from rich.markup import escape
-from data.version_list import versions
-from data.software_list import softwares
+from .data.version_list import versions
+from .data.software_list import softwares
 from pathlib import Path
 
 app = typer.Typer()
@@ -88,7 +88,7 @@ def pick_location():
     default = define_default()
     try:
         location = Prompt.ask(
-            f"[yellow]Where[/yellow] would you like your server to be created at?\n[grey0](Default: {default}[/grey0]"
+            f"[yellow]Where[/yellow] would you like your server to be created at?\n[grey70](Default: {default}[/grey70]"
         )
     except KeyboardInterrupt:
         print("\n")
@@ -105,7 +105,7 @@ def pick_location():
 def pick_version():
     try:
         version = Prompt.ask(
-            "[yellow]Which version[/yellow] would you like your server to be?\n[grey0](Default: latest)[/grey0]"
+            "[yellow]Which version[/yellow] would you like your server to be?\n[grey70](Default: latest)[/grey70]"
         )
     except KeyboardInterrupt:
         print("\n")
@@ -124,7 +124,7 @@ def pick_version():
 def pick_server():
     try:
         software = Prompt.ask(
-            "[yellow]Which server software[/yellow] would you like your server to use?\n[grey0](Default: paper)[grey0]"
+            "[yellow]Which server software[/yellow] would you like your server to use?\n[grey70](Default: paper)[grey70]"
         ).lower()
     except KeyboardInterrupt:
         print("\n")
