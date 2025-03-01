@@ -2,6 +2,7 @@ import typer
 import json
 import os
 import psutil
+import requests
 
 from pathvalidate import sanitize_filepath
 from rich import print
@@ -17,7 +18,17 @@ app = typer.Typer()
 @app.command()
 def install():
     config = json.load(open(f"{conf_dir}/config.json", mode="r", encoding="utf-8"))
-    print(config)
+    setupmd_api = (
+        f"https://jar.setup.md/download/{config['loader']}/{config['version']}/latest"
+    )
+    jardata = requests.get(setupmd_api)
+    if jardata.status_code != 200:
+        print("API Errored\n")
+        raise typer.Abort()
+    dir = Path(config["location"])
+    dir.mkdir(parents=True, exist_ok=True)
+    with open(f"{config['location']}/server.jar", mode="wb") as jarfile:
+        jarfile.write(jardata.content)
     raise typer.Abort()
 
 
@@ -63,15 +74,27 @@ conf_dir: str = setup()
 
 
 def pick_location():
+    def define_default():
+        system = os.name
+        if system == "posix":
+            homepath = os.getenv("HOME")
+            directory = f"{homepath}/.local/share/easymcserver/"
+            return directory
+        if system == "nt":
+            homepath = os.getenv("HOMEPATH")
+            directory = f"{homepath}\\easymcserver\\server"
+            return directory
+
+    default = define_default()
     try:
         location = Prompt.ask(
-            "[yellow]Where[/yellow] would you like your server to be created at?\n[grey0](Default: /opt/minecraft)[/grey0]"
+            f"[yellow]Where[/yellow] would you like your server to be created at?\n[grey0](Default: {default}[/grey0]"
         )
     except KeyboardInterrupt:
         print("\n")
         raise typer.Abort()
     if location == "":
-        location = "/opt/minecraft"
+        location = default
     location = sanitize_filepath(
         file_path=location, platform="auto"
     )  # Sanitize File Path
