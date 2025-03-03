@@ -32,7 +32,6 @@ requires-poetry = ">=2.0"
 classifiers = [
     "Development Status :: 4 - Beta",
     "Environment :: Console",
-    "Framework :: Typer",
     "Intended Audience :: System Administrators",
     "Intended Audience :: Information Technology",
     "Natural Language :: English",
