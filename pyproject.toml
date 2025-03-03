@@ -1,6 +1,6 @@
 [project]
-name = "easyminecraftserver"
-version = "0.0.1"
+name = "EasyMinecraftServer"
+version = "0.0.2"
 description = "A Typer app that makes the creation process of a Minecraft Server easier!"
 license = "GPL-3.0-only"
 authors = [
