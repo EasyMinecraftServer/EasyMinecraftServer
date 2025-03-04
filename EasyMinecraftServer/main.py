@@ -9,7 +9,7 @@ from rich import print
 from rich.prompt import Prompt, Confirm
 from rich.markup import escape
 from .data.version_list import versions
-from .data.software_list import softwares
+from .data.software_list import softwares, supported_by_setupmd
 from pathlib import Path
 
 app = typer.Typer()
@@ -18,11 +18,13 @@ app = typer.Typer()
 @app.command()
 def install():
     config = json.load(open(f"{conf_dir}/config.json", mode="r", encoding="utf-8"))
-    setupmd_api = (
-        f"https://jar.setup.md/download/{config['loader']}/{config['version']}/latest"
-    )
-    jardata = requests.get(setupmd_api)
-    if jardata.status_code != 200:
+    if config["loader"] in supported_by_setupmd:
+        jar_api = f"https://jar.setup.md/download/{config['loader']}/{config['version']}/latest"
+    else:
+        print("Not supported by API\n")
+        raise typer.Abort()
+    jardata = requests.get(jar_api)
+    if jardata.status_code != 200 and jardata.status_code != 302:
         print("API Errored\n")
         raise typer.Abort()
     dir = Path(config["location"])
@@ -124,7 +126,7 @@ def pick_version():
 def pick_server():
     try:
         software = Prompt.ask(
-            "[yellow]Which server software[/yellow] would you like your server to use?\n[grey70](Default: paper)[grey70]"
+            "[yellow]Which server software[/yellow] would you like your server to use?\n[grey70](Default: fabric)[grey70]"
         ).lower()
     except KeyboardInterrupt:
         print("\n")
@@ -135,7 +137,7 @@ def pick_server():
         )
         raise typer.Abort()
     if software == "":
-        software = "paper"
+        software = "fabric"
     print(f"Selected [bold magenta]{escape(software)}[/bold magenta]")
     return software  # Return software as string
 
@@ -150,7 +152,8 @@ def detect_ram():
 def is_optimized():
     try:
         optimized = Confirm.ask(
-            "Would you like your server to be [yellow]optimized[/yellow]?", default=True
+            "Would you like your server to be [yellow]optimized[/yellow]?\nThis will only install serverside mods.",
+            default=True,
         )
     except KeyboardInterrupt:
         print("\n")

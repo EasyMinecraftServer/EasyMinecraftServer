@@ -15,3 +15,5 @@ softwares = [
     "velocity",
     "folia",
 ]
+
+supported_by_setupmd = ["paper", "folia", "velocity", "purpur", "vanilla"]
