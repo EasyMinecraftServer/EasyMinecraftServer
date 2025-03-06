@@ -3,6 +3,7 @@ import json
 import os
 import psutil
 import requests
+import javaproperties
 
 from pathvalidate import sanitize_filepath
 from rich import print
@@ -18,20 +19,44 @@ app = typer.Typer()
 @app.command()
 def install():
     config = json.load(open(f"{conf_dir}/config.json", mode="r", encoding="utf-8"))
-    if config["loader"] in supported_by_setupmd:
-        jar_api = f"https://jar.setup.md/download/{config['loader']}/{config['version']}/latest"
+    download_jar(
+        loader=config["loader"], version=config["version"], location=config["location"]
+    )
+    print("Server JAR has been downloaded [green bold]succesfullly[/green bold]!")
+    install_configs(loader=config["loader"], location=config["location"])
+    print(
+        "Server Configuration has been completed [green bold]succesfully[/green bold]!"
+    )
+    raise typer.Exit()
+
+
+def download_jar(location: str, loader: str = "purpur", version: str = "latest"):
+    if loader in supported_by_setupmd:
+        jar_api = f"https://jar.setup.md/download/{loader}/{version}/latest"
     else:
         print("Not supported by API\n")
         raise typer.Abort()
     jardata = requests.get(jar_api)
     if jardata.status_code != 200 and jardata.status_code != 302:
-        print("API Errored\n")
+        print("Jar API Errored\n")
         raise typer.Abort()
-    dir = Path(config["location"])
+    dir = Path(location)
     dir.mkdir(parents=True, exist_ok=True)
-    with open(f"{config['location']}/server.jar", mode="wb") as jarfile:
+    with open(f"{location}/server.jar", mode="wb") as jarfile:
         jarfile.write(jardata.content)
-    raise typer.Abort()
+
+
+def install_configs(location: str, loader: str = "purpur"):
+    propertiesdata = requests.get("https://server.properties/")
+    if propertiesdata.status_code != 200 and propertiesdata.status_code != 302:
+        print("Properties API Errored\n")
+        raise typer.Abort()
+    with open(f"{location}/server.properties", mode="w") as propertiesfile:
+        properties = javaproperties.loads(propertiesdata.content)
+        properties["hide-online-players"] = "true"
+        properties["white-list"] = "true"
+        properties = javaproperties.dumps(properties)
+        propertiesfile.write(properties)
 
 
 @app.command()
@@ -126,7 +151,7 @@ def pick_version():
 def pick_server():
     try:
         software = Prompt.ask(
-            "[yellow]Which server software[/yellow] would you like your server to use?\n[grey70](Default: fabric)[grey70]"
+            "[yellow]Which server software[/yellow] would you like your server to use?\n[grey70](Default: purpur)[grey70]"
         ).lower()
     except KeyboardInterrupt:
         print("\n")
@@ -137,7 +162,7 @@ def pick_server():
         )
         raise typer.Abort()
     if software == "":
-        software = "fabric"
+        software = "purpur"
     print(f"Selected [bold magenta]{escape(software)}[/bold magenta]")
     return software  # Return software as string
 

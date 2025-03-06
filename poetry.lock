@@ -226,6 +226,18 @@ files = [
 ]
 
 [[package]]
+name = "javaproperties"
+version = "0.8.2"
+description = "Read & write Java .properties files"
+optional = false
+python-versions = ">=3.8"
+groups = ["main"]
+files = [
+    {file = "javaproperties-0.8.2-py3-none-any.whl", hash = "sha256:30141f83c45b574e204ee8170071535815994f468726813ec90f2d7f9fa6e7c1"},
+    {file = "javaproperties-0.8.2.tar.gz", hash = "sha256:f780d17ca12d57da58519dcf9d821cbcdb6f98a8b5af661013e31a5050c59a0f"},
+]
+
+[[package]]
 name = "markdown-it-py"
 version = "3.0.0"
 description = "Python port of markdown-it. Markdown parsing, done right!"
@@ -603,4 +615,4 @@ test = ["covdefaults (>=2.3)", "coverage (>=7.2.7)", "coverage-enable-subprocess
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.11"
-content-hash = "2d08d0515a181ec0a47de78f5781a06ffb898499c2c6b1bdfe94ba0c86460c9d"
+content-hash = "ed0430fa885120618cf7e57fc822ca9a8e4dbf68aef7b1ffaf56940642371ddd"
