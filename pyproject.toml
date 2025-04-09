@@ -19,14 +19,11 @@ dependencies = [
 dynamic = [ "classifiers" ]
 
 [project.urls]
-homepage = "https://git.funtimes909.xyz/Nucceteere/EasyMinecraftServer/src/branch/main/README.md"
-"GitHub Repository" = "https://github.com/EasyMinecraftServer/EasyMinecraftServer"
-repository = "https://git.funtimes909.xyz/Nucceteere/EasyMinecraftServer/"
-documentation = "https://git.funtimes909.xyz/Nucceteere/EasyMinecraftServer/wiki/"
-"Forgejo Bug Tracker" = "https://git.funtimes909.xyz/Nucceteere/EasyMinecraftServer/issues"
-"GitHub Bug Tracker" = "https://github.com/EasyMinecraftServer/EasyMinecraftServer/issues"
-"Contribute on GitHub" = "https://github.com/EasyMinecraftServer/EasyMinecraftServer/pulls"
-"Contribute on Forgejo" = "https://git.funtimes909.xyz/Nucceteere/EasyMinecraftServer/pulls"
+homepage = "https://github.com/EasyMinecraftServer/EasyMinecraftServer/blob/main/README.md"
+repository = "https://github.com/EasyMinecraftServer/EasyMinecraftServer"
+documentation = "https://github.com/EasyMinecraftServer/EasyMinecraftServer/wiki/"
+"Bug Tracker" = "https://github.com/EasyMinecraftServer/EasyMinecraftServer/issues"
+"Contribute" = "https://github.com/EasyMinecraftServer/EasyMinecraftServer/pulls"
 
 [tool.poetry]
 packages = [
